@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>{{id}}</p>
-    <img src="../static/images/ai.jpg">
+    <img src="../static/images/ai.jpg"/>
   </div>
 </template>
 
@@ -9,7 +9,7 @@
   export default {
     data() {
       return {
-        id: '002'
+        id: '003'
       }
     }
   }

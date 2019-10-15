@@ -9,7 +9,7 @@
     "dev": "webpack-dev-server --mode development --config build/webpack.dev.config.js",
     "build": "node build/webpack.prod.config.js",
     "start": "npm run dev",
-    "bt": "webpack --mode development --config build/webpack.base.config.js"
+    "tmd": "webpack-dev-server --mode development --config build/webpack.test.js"
   },
   "keywords": [],
   "author": "",
