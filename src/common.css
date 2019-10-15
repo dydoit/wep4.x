@@ -1,6 +1,0 @@
-div {
-  display: flex;
-  transition: all .5s linear;
-  color: red;
-  user-select: none;
-}
