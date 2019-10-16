@@ -1,6 +1,7 @@
 const baseConfig = require('./webpack.base.config')
 const merge = require('webpack-merge')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ora = require('ora')
@@ -16,10 +17,19 @@ const plugins = [
     filename: 'static/css/[name].[contenthash].css'
   }),
   new OptimizeCSSPlugin(),
+  new HtmlWebpackPlugin({
+    filename: 'index.html',
+    template: './index.html',
+    inject: true,
+    minify:{
+      removeComments: true,
+      collapseWhitespace: true,
+      removeAttributeQuotes: true
+    }
+  }),
   new webpack.HashedModuleIdsPlugin()
 ]
 const files = fs.readdirSync(path.resolve(__dirname, '../dll'))
-console.log(files)
 files.forEach(file => {
   if(/.*\.dll.js/.test(file)) {
     plugins.push(
@@ -50,6 +60,24 @@ const webpackConfig = merge(baseConfig, {
           }
         }, 'postcss-loader', 'stylus-loader']
       },
+      {
+        test: /\.(scss|sass|css)$/,
+        use: [MiniCssExtractPlugin.loader, {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 2
+          }
+        }, 'postcss-loader', 'sass-loader']
+      },
+      {
+        test: /\.less$/,
+        use: [MiniCssExtractPlugin.loader, {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 2
+          }
+        }, 'postcss-loader', 'less-loader']
+      }
     ]
   },
   plugins,

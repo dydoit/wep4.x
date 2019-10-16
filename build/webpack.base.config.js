@@ -1,6 +1,5 @@
 const path = require('path')
 const { VueLoaderPlugin } = require('vue-loader')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const resolve = (dir) => {
   return path.join(__dirname, '..', dir)
 }
@@ -11,7 +10,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename:'[name].[hash:6].js',
-    publicPath: '/'
+    // publicPath: '/'
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
@@ -34,10 +33,8 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /node_modules/,
-        use:{
-          loader: 'babel-loader'
-        }
+        include: [resolve('src')],
+        use: ['babel-loader']
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -76,17 +73,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new VueLoaderPlugin(),
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: './index.html',
-      inject: true,
-      minify:{
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-      }
-    })
+    new VueLoaderPlugin()
   ],
   optimization: {
     usedExports: true

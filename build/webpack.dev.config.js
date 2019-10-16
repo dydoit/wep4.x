@@ -1,11 +1,13 @@
 const baseConfig = require('./webpack.base.config')
 const merge = require('webpack-merge')
 const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const portfinder = require('portfinder')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 const devWebpackConfig = merge(baseConfig, {
+  mode: 'development',
   devtool: '#cheap-eval-source-map',
   devServer: {
     hot: true,
@@ -14,11 +16,47 @@ const devWebpackConfig = merge(baseConfig, {
     port: PORT || 8080,
     quiet: true, // 表示开启friendly 的打印提示
     publicPath: '/',
-    proxy: {},
+    proxy: {}, // 此处填接口地址重定向
     overlay: { warnings: false, errors: true },
     historyApiFallback: true
   },
+  module: {
+    rules: [
+      {
+        test:/\.styl(us)?$/,
+        use: ['vue-style-loader', {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 2
+          }
+        }, 'postcss-loader', 'stylus-loader']
+      },
+      {
+        test: /\.(scss|sass|css)$/,
+        use: ['vue-style-loader', {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 2
+          }
+        }, 'postcss-loader', 'sass-loader']
+      },
+      {
+        test: /\.less$/,
+        use: ['vue-style-loader', {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 2
+          }
+        }, 'postcss-loader', 'less-loader']
+      }
+    ]
+  },
   plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: './index.html',
+      inject: true
+    }),
     new webpack.HotModuleReplacementPlugin()
   ]
 })

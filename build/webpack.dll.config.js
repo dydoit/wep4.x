@@ -4,7 +4,9 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 module.exports = {
   mode: 'production',
   entry: {
-    vue: ['vue']
+    vue: ['vue','vue-router', 'vuex'],
+    axios: ['axios'],
+    element: ['element-ui']
   },
   output: {
     filename: '[name].dll.js',
