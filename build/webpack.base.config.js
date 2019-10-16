@@ -1,9 +1,6 @@
 const path = require('path')
 const { VueLoaderPlugin } = require('vue-loader')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-
-const isProd = process.env.NODE_ENV === 'production'
 const resolve = (dir) => {
   return path.join(__dirname, '..', dir)
 }
@@ -54,33 +51,6 @@ module.exports = {
         }
       },
       {
-        test: /\.(scss|sass|css)$/,
-        use: [isProd? MiniCssExtractPlugin.loader: 'vue-style-loader', {
-          loader: 'css-loader',
-          options: {
-            importLoaders: 2 // 详见webpack官网
-          }
-        }, 'postcss-loader', 'sass-loader']
-      },
-      {
-        test:/\.styl(us)?$/,
-        use: [isProd? MiniCssExtractPlugin.loader: 'vue-style-loader', {
-          loader: 'css-loader',
-          options: {
-            importLoaders: 2
-          }
-        }, 'postcss-loader', 'stylus-loader']
-      },
-      {
-        test: /\.less$/,
-        use: [isProd? MiniCssExtractPlugin.loader: 'vue-style-loader', {
-          loader: 'css-loader',
-          options: {
-            importLoaders: 2
-          }
-        }, 'postcss-loader', 'less-loader']
-      },
-      {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
         use: [
           {
@@ -110,7 +80,15 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './index.html',
-      chunks: ['app']
+      inject: true,
+      minify:{
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+      }
     })
-  ]
+  ],
+  optimization: {
+    usedExports: true
+  }
 }

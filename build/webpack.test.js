@@ -13,7 +13,7 @@ module.exports = {
         hot: true
     },
     entry: {
-        app: './src/main.js'
+        app: './src/test.js'
     },
     output: {
         path: path.resolve(__dirname, '../dist'),
@@ -33,7 +33,7 @@ module.exports = {
                       preserveWhitespace: false
                     }
                   }
-                }        
+                }
             },
             {
                 test: /\.js$/,
@@ -63,14 +63,11 @@ module.exports = {
         ]
     },
     plugins: [
-        new VueLoaderPlugin(),
-        new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: './index.html',
-            chunks: ['app']
-        })
-    ]
+        new VueLoaderPlugin()
+    ],
+    optimization: {
+      usedExports: true
+    }
 }
 
 
