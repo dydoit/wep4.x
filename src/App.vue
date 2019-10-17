@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Cc></Cc>
     <p>{{id}}</p>
+    <el-input></el-input>
   </div>
 </template>
 
@@ -19,4 +19,5 @@
   div
     font-weight 600
     color red
+    border 1px solid red
 </style>

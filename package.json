@@ -1,11 +1,5 @@
 {
   "name": "webpack-stud",
-  "sideEffects": [
-    "*.styl",
-    "*.css",
-    "*.less",
-    "*.scss"
-  ],
   "version": "1.0.0",
   "description": "",
   "private": true,
@@ -60,6 +54,7 @@
     "not ie <= 8"
   ],
   "dependencies": {
+    "@antv/g6-editor": "^1.2.0",
     "axios": "^0.19.0",
     "element-ui": "^2.12.0",
     "moment": "^2.24.0",

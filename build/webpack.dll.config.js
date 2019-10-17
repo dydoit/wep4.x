@@ -6,7 +6,8 @@ module.exports = {
   entry: {
     vue: ['vue','vue-router', 'vuex'],
     axios: ['axios'],
-    element: ['element-ui']
+    element: ['element-ui'],
+    g6_edtor: ['@antv/g6-editor']
   },
   output: {
     filename: '[name].dll.js',
