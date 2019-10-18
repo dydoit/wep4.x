@@ -9,8 +9,8 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename:'[name].[hash:6].js',
-    // publicPath: '/'
+    filename:'static/js/[name].[hash:6].js'
+    // publicPath: ''  //可用来配置cdn地址
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],

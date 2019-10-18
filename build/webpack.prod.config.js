@@ -33,14 +33,17 @@ const files = fs.readdirSync(path.resolve(__dirname, '../dll'))
 files.forEach(file => {
   if(/.*\.dll.js/.test(file)) {
     plugins.push(
-      new AddAssetHtmlPlugin({
-        filepath: path.resolve(__dirname, '../dll', file)
+      new AddAssetHtmlPlugin({ // 把dll里的文件copy过来，同时在html文件上生成script
+        filepath: path.resolve(__dirname, '../dll', file),
+        outputPath: 'static/js',
+        publicPath: 'static/js' 
       })
     )
   }
   if(/.*\.manifest.json/.test(file)) {
+
     plugins.push(
-      new webpack.DllReferencePlugin({
+      new webpack.DllReferencePlugin({ // 用来把import进来的第三方库路径导到已经打包好了的dll库，避免再次编译打包
         manifest: path.resolve(__dirname, '../dll', file)
       })
     )
